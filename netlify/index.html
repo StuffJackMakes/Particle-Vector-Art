@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            * { margin: 0px; padding: 0px; }
+            body { font-size: 18px; }
+            #drawingCanvas {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                z-index: 999;
+            }
+            #image {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 800px;
+                height: 800px;
+            }
+            button {
+                margin: 1px;
+                padding: 3px;
+                font-size: 14px;
+                width: 100%;
+            }
+            .flex {
+                display: flex;
+                align-items: center;
+            }
+            .row {
+                flex-direction: row;
+            }
+            .col {
+                flex-direction: column;
+            }
+        </style>
+        <link rel="stylesheet" href="https://stuffjackmakes.com/particle-vector-art/jsoneditor.min.css">
+        <script src="https://stuffjackmakes.com/particle-vector-art/jsoneditor.min.js"></script>
+        <script>
+            let editor;
+            let isPaused = false;
+            let svgString;
+            let uploadedPropertiesText;
+            function SetupEditor() {
+                editor = new JSONEditor(document.getElementById("editor", {}));
+            }
+            function SetRunProperties(runProperties) {
+                editor.set(runProperties);
+            }
+            function UpdateStepCounter(step, total) {
+                document.getElementById("stepCounter").textContent = "Iteration " + step + " / " + total;
+            }
+            function ShowHideHeightmap() {
+                let image = document.getElementById("image");
+                if (image.style.display === "none") {
+                    image.style.display = "block";
+                } else {
+                    image.style.display = "none";
+                }
+            }
+            function EnableImageDownload(svg) {
+                document.getElementById("downloadImageButton").disabled = false;
+                svgString = svg;
+            }
+            function DisableImageDownload() {
+                document.getElementById("downloadImageButton").disabled = true;
+            }
+            function SaveImage() {
+                let fileName = "particle-vector-art.svg"
+                let url = "data:image/svg+xml;utf8," + encodeURIComponent(svgString);
+                let link = document.createElement("a");
+                link.download = fileName;
+                link.href = url;
+                link.click();
+            }
+            function SaveProperties() {
+                let data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editor.get()));
+                let link = document.createElement("a");
+                link.setAttribute("href", data);
+                link.setAttribute("download", "run-properties.json");
+                link.click();
+            }
+            function ImageUploaded(file) {
+                document.getElementById("image").src = window.URL.createObjectURL(file);
+            }
+            function RunPropertiesUploaded(file) {
+                let reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedPropertiesText = event.target.result;
+                    SetRunProperties(JSON.parse(uploadedPropertiesText));
+                }
+                reader.readAsText(file);
+            }
+            function SwapForUploadedRunProperties(baseRunProperties) {
+                if (uploadedPropertiesText) return JSON.parse(uploadedPropertiesText);
+                return baseRunProperties;
+            }
+        </script>
+        <script src="https://stuffjackmakes.com/particle-vector-art/bundle.js"></script>
+    </head>
+    <body>
+        <div class="flex row">
+            <div style="position: relative; padding: 10px;">
+                <canvas id="heightmapCanvas" width="800px" height="800px" style="visiblity:hidden;"></canvas>
+                <img id="image" class="float" style="display: block" src="https://stuffjackmakes.com/particle-vector-art/heightmap.png" crossorigin="anonymous"/>
+                <canvas id="drawingCanvas" width="800px" height="800px"></canvas>
+            </div>
+            <div class="flex col" style="margin-top: -40px;">
+                <div id="stepCounter"></div>
+                <button onclick="BrowserShowHideBackground()">Show/Hide Heightmap</button>
+                <button onclick="BrowserPauseResume()">Pause/Resume Run</button>
+                <button onclick="RestartRun()">Regenerate Parameters</button>
+                <button onclick="RestartRun(editor.get())">Restart Run</button>
+                <button id="downloadImageButton" onclick="SaveImage()" disabled>Save Image</button>
+                <button id="downloadPropertiesButton" onclick="SaveProperties()">Save Properties</button>
+                <div class="row">
+                    Upload New Heightmap
+                    <input type="file" accept="image/*" onchange="ImageUploaded(this.files[0])">
+                </div>
+                <div class="row">
+                    Upload Run Properties
+                    <input type="file" accept="application/JSON" onchange="RunPropertiesUploaded(this.files[0])">
+                </div>
+                <div id="editor"></div>
+            </div>
+        </div>
+    </body>
+</html>

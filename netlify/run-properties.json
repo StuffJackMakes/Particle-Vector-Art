@@ -1,0 +1,38 @@
+{
+    "repeatTimes": 3,
+    "totalSteps": 200,
+    "allowBackgroundColor": false,
+    "random": {
+        "nudgePropertiesChance": 0,
+        "nudgePropertiesMagnitude": 0.2,
+        "brandNewPaletteChance": 0
+    },
+    "utilityProperties": {
+        "noiseType": 0,
+        "easingFunction": 0,
+        "xNoiseScale": 0.015,
+        "yNoiseScale": 0.015,
+        "noiseTimeScale": 0.0101,
+        "noiseFieldScale": 1
+    },
+    "particleDefaults": {
+        "minSize": 1,
+        "maxSize": 20,
+        "minLifespan": 20,
+        "maxLifespan": 200,
+        "minSpeed": 2,
+        "maxSpeed": 20
+    },
+    "colorController": {
+        "noiseOffset": 3,
+        "heightmapChannel": 3,
+        "controlFunction": "HeightmapMux",
+        "controlMuxA": "Constant",
+        "controlMuxB": "Inverse"
+    },
+    "magnitudeController": {
+        "heightmapChannel": 3,
+        "globalConstantMagnitude": 20,
+        "controlFunction": "GlobalConstant"
+    }
+}
