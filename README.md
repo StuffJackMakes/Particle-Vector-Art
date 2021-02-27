@@ -19,6 +19,10 @@ Generative vector artwork in [Node.js](https://nodejs.org/en/) with [Paper.js](h
     <img width="200" src="example_images/example_12.svg" />
 </p>
 
+## Live Demo
+
+[particle-vector-art.stuffjackmakes.com](https://particle-vector-art.stuffjackmakes.com) has a running demo of the web interface. This interface was developed as a visual aid in finding interesting run property configurations to use in the (quicker) Node.js application, and as such the UI is minimal.
+
 ## Usage
 
 Clone the repository to your local machine and install the required libraries with:
@@ -44,8 +48,6 @@ To use different heightmaps, move the desired images to the [heightmaps](heightm
 To use different run properties, edit [run-properties.json](run-properties.json) and run the program. All possible run property values are described in the Run Properties Format section below.
 
 ### In The Browser
-
-There is a web interface in adition to the CLI. It was developed as a visual aid in finding interesting run property configurations to use in the (quicker) Node.js application, and as such the UI is minimal. 
 
 Everything required to run this in the browser is included in the [public]() folder. To host the contents of that folder, run:
 
@@ -220,3 +222,7 @@ The [run-properties.json](run-properties.json) file controls the parameters of t
 - Custom line ends (e.g. a jagged paintbrush look)
 - Allow mutliple heightmaps
 - Control functions that operate off of particle properties (e.g. velocity, position, etc)
+
+## Author
+
+Check out my other work at [stuffjackmakes.com](https://stuffjackmakes.com)
