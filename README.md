@@ -64,18 +64,6 @@ To bundle the code using [Browserify](http://browserify.org) and copy [run-prope
 npm run web
 ```
 
-## Potential Improvements / Future Work
-
-- Expand upon "rounding" from Angle controller (e.x. limit the size controller sizes to 2, 4, 6, 8, etc)
-- Add symmetry, where particles are reflected across specific axes
-- Add particle interation (e.g. gravity or flocking)
-- Zig-zag angle controller
-- Color Controller PaletteNoise control funcion, where noise controls fading between colors in the palette (vs all colors)
-- Mode where particle defaults depend on their base color (i.e. all particles of the same color act in a similar fashion)
-- Custom line ends (e.g. a jagged paintbrush look)
-- Allow mutliple heightmaps
-- Control functions that operate off of particle properties (e.g. velocity, position, etc)
-
 ## Run Properties Format
 
 The [run-properties.json](run-properties.json) file controls the parameters of the simulation. All values are optional and revert to their default value if none is provided. The [run-properties-all.json](run-properties-all.json) contains all possible options as an example for how each is set.
@@ -220,3 +208,15 @@ The [run-properties.json](run-properties.json) file controls the parameters of t
     - `HeightmapMux`: Particles ease between the size defined by `magnitudeController.controlMuxA` and the size defined by `magnitudeController.controlMuxA` using `utilityProperties.easingFunction` to ease between values, depending on the `magnitudeController.heightmapChannel` value at the particle's position. 
 - `sizeController.controlMuxA`: The control function ease from when mux-ing. Can be any of the `sizeController.controlFunction` values except `TimeMux` and `HeightmapMux`. Default value is a random control function.
 - `sizeController.controlMuxB`: The control function ease to when mux-ing. Can be any of the `sizeController.controlFunction` values except `TimeMux` and `HeightmapMux`. Default value is a random control function.
+
+## Potential Improvements / Future Work
+
+- Expand upon "rounding" from Angle controller (e.x. limit the size controller sizes to 2, 4, 6, 8, etc)
+- Add symmetry, where particles are reflected across specific axes
+- Add particle interation (e.g. gravity or flocking)
+- Zig-zag angle controller
+- Color Controller PaletteNoise control funcion, where noise controls fading between colors in the palette (vs all colors)
+- Mode where particle defaults depend on their base color (i.e. all particles of the same color act in a similar fashion)
+- Custom line ends (e.g. a jagged paintbrush look)
+- Allow mutliple heightmaps
+- Control functions that operate off of particle properties (e.g. velocity, position, etc)
