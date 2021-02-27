@@ -2,10 +2,6 @@
 
 Generative vector artwork in [Node.js](https://nodejs.org/en/) with [Paper.js](http://paperjs.org) using a particle simulation.
 
-## Live Demo
-
-[stuffjackmakes.com/particle-vector-art](https://stuffjackmakes.com/particle-vector-art) has a running demo of the web interface. This interface was developed to aid in finding interesting run property configurations to use in the (quicker) Node.js application.
-
 ## Example Output
 
 <p align="center">
@@ -48,6 +44,8 @@ To use different heightmaps, move the desired images to the [heightmaps](heightm
 To use different run properties, edit [run-properties.json](run-properties.json) and run the program. All possible run property values are described in the Run Properties Format section below.
 
 ### In The Browser
+
+There is a web interface in adition to the CLI. It was developed as a visual aid in finding interesting run property configurations to use in the (quicker) Node.js application, and as such the UI is minimal. 
 
 Everything required to run this in the browser is included in the [public]() folder. To host the contents of that folder, run:
 
