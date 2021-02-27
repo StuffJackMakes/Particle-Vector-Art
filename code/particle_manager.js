@@ -103,22 +103,6 @@ module.exports = class ParticleManager {
 
     GetProperties() {
         this.particleProperties;
-        /*
-        return {
-            minSize: this.defaultMinSize,
-            maxSize: this.defaultMaxSize,
-            minLifespan: this.defaultMinLifespan,
-            maxLifespan: this.defaultMaxLifespan,
-            //initialSpeed: this.defaultInitialSpeed,
-            minSpeed: this.defaultMinSpeed,
-            maxSpeed: this.defaultMaxSpeed,
-            skipPattern: this.particleProperties.defaultSkipPattern,
-            lineCapBehavior: this.particleProperties.defaultLineCapBehavior,
-            lineJoinBehavior: this.particleProperties.defaultLineJoinBehavior,
-            edgeBehavior: this.particleProperties.defaultEdgeBehavior,
-            overshoot: this.particleProperties.defaultOvershoot
-        }
-        */
     }
 
     SetProperties(properties) {

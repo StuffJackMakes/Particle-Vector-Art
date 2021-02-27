@@ -55,6 +55,7 @@ let GenerateImages = (heightmapFiles, overrideRunProperties) => {
     }
 
     FileHelper.LoadRunProperties(inBrowser, (baseRunProperties) => {
+        if (inBrowser) baseRunProperties = SwapForUploadedRunProperties(baseRunProperties);
         if (overrideRunProperties) baseRunProperties = overrideRunProperties;
         // Load properties for this run if there is a property file
         let run = baseRunProperties;
@@ -207,7 +208,7 @@ let GenerateImages = (heightmapFiles, overrideRunProperties) => {
                             precision: 2,
                             matchShapes: true,
                             embedImages: false
-                        }), paper);
+                        }));
                     }
                 }
 
@@ -277,11 +278,9 @@ if (inBrowser) {
         if (!("repeatTimes" in baseRunProperties)) baseRunProperties.repeatTimes = 0;
         console.log("repeating " + baseRunProperties.repeatTimes + " times");
         let repeatHeightmaps = [];
-        console.log(repeatHeightmaps.length);
         for (let i = 0; i < 1 + baseRunProperties.repeatTimes; i++) {
             repeatHeightmaps.push.apply(repeatHeightmaps, heightmaps);
         }
-        console.log(repeatHeightmaps.length);
         GenerateImages(repeatHeightmaps);
     });
 }

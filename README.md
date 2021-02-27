@@ -2,7 +2,6 @@
 
 Generative vector artwork in [Node.js](https://nodejs.org/en/) with [Paper.js](http://paperjs.org) using a particle simulation.
 
-
 ## Live Demo
 
 [stuffjackmakes.com/particle-vector-art](https://stuffjackmakes.com/particle-vector-art) has a running demo of the web interface. This interface was developed to aid in finding interesting run property configurations to use in the (quicker) Node.js application.
@@ -10,18 +9,18 @@ Generative vector artwork in [Node.js](https://nodejs.org/en/) with [Paper.js](h
 ## Example Output
 
 <p align="center">
-    <img width="200" src="example_images/example_01" />
-    <img width="200" src="example_images/example_02" />
-    <img width="200" src="example_images/example_03" />
-    <img width="200" src="example_images/example_04" />
-    <img width="200" src="example_images/example_05" />
-    <img width="200" src="example_images/example_06" />
-    <img width="200" src="example_images/example_07" />
-    <img width="200" src="example_images/example_08" />
-    <img width="200" src="example_images/example_09" />
-    <img width="200" src="example_images/example_10" />
-    <img width="200" src="example_images/example_11" />
-    <img width="200" src="example_images/example_12" />
+    <img width="200" src="example_images/example_01.svg" />
+    <img width="200" src="example_images/example_02.svg" />
+    <img width="200" src="example_images/example_03.svg" />
+    <img width="200" src="example_images/example_04.svg" />
+    <img width="200" src="example_images/example_05.svg" />
+    <img width="200" src="example_images/example_06.svg" />
+    <img width="200" src="example_images/example_07.svg" />
+    <img width="200" src="example_images/example_08.svg" />
+    <img width="200" src="example_images/example_09.svg" />
+    <img width="200" src="example_images/example_10.svg" />
+    <img width="200" src="example_images/example_11.svg" />
+    <img width="200" src="example_images/example_12.svg" />
 </p>
 
 ## Usage
@@ -32,21 +31,21 @@ Clone the repository to your local machine and install the required libraries wi
 npm install
 ```
 
-Then run the program with the provided [run-properties.json]() and [heightmap.png](heightmaps/heightmap.png) with:
+Then run the program with the provided [run-properties.json](run-properties.json) and [heightmap.png](heightmaps/heightmap.png) with:
 
 ```sh
 node index.js
 ```
 
-And the output image(s) will be saved to the [output]() folder, along with corresponding json metadata files in the [output/metadata]() folder.
+And the output image(s) will be saved to the `output` folder, along with corresponding json metadata files in the `output/metadata` folder. Both folders are generated at runtime.
 
 ### Custom Heightmaps
 
-To use different heightmaps, move the desired images to the [heightmaps]() folder. The program detects all images in that folder and runs a simulation against each, repeating as defined in the run properties.
+To use different heightmaps, move the desired images to the [heightmaps](heightmaps) folder. The program detects all images in that folder and runs a simulation against each, repeating as defined in the run properties.
 
 ### Custom Run Properties
 
-To use different run properties, edit [run-properties.json]() and run the program. All possible run property values are described in the [Run Properties Format](##-[run-properties.json]()-Format) section.
+To use different run properties, edit [run-properties.json](run-properties.json) and run the program. All possible run property values are described in the Run Properties Format section below.
 
 ### In The Browser
 
@@ -61,19 +60,27 @@ Then go to `http://localhost:8080` in your web browser.
 
 ### Building
 
-To bundle the code using [Browserify](http://browserify.org) and copy [run-properties.json]() to the [public]() folder, run:
+To bundle the code using [Browserify](http://browserify.org) and copy [run-properties.json](run-properties.json) to the [public](public) folder, run:
 
 ```sh
 npm run web
 ```
 
-## Improvements
+## Potential Improvements / Future Work
 
-TODO
+- Expand upon "rounding" from Angle controller (e.x. limit the size controller sizes to 2, 4, 6, 8, etc)
+- Add symmetry, where particles are reflected across specific axes
+- Add particle interation (e.g. gravity or flocking)
+- Zig-zag angle controller
+- Color Controller PaletteNoise control funcion, where noise controls fading between colors in the palette (vs all colors)
+- Mode where particle defaults depend on their base color (i.e. all particles of the same color act in a similar fashion)
+- Custom line ends (e.g. a jagged paintbrush look)
+- Allow mutliple heightmaps
+- Control functions that operate off of particle properties (e.g. velocity, position, etc)
 
-## [run-properties.json]() Format
+## Run Properties Format
 
-The [run-properties.json]() file controls the parameters of the simulation. All values are optional and revert to their default value if none is provided. The [run-properties-all.json](run-properties-all.json) contains all possible options as an example for how each is set.
+The [run-properties.json](run-properties.json) file controls the parameters of the simulation. All values are optional and revert to their default value if none is provided. The [run-properties-all.json](run-properties-all.json) contains all possible options as an example for how each is set.
 
 - `repeatTimes`: How many additional times to generate an image for each heightmap. Note that this value does nothing in the browser. Default value is 0.
 - `width`: Width of the generated image. Does not need to be related to the heightmap dimensions, and is itself dimensionless since the generated image is a vector. Default value is the width of the provided heightmap.
@@ -81,23 +88,23 @@ The [run-properties.json]() file controls the parameters of the simulation. All 
 - `numParticles`: How many particles to simulate. Default value is a random integer between 1 and 8.
 - `totalSteps`: How many times the simulation will last. Default value is a random integer between 100 and 500.
 - `allowBackgroundColor`: if `true` then particles can be the same color as the background. Default value is randomly 50% true and 50% false.
-- `palette`: A list of the colors to choose from, as hex strings (e.x. *["#F9A799", "#B7CBBF"]*). If missing, a random palette from [code/color-palettes.json]() will be chosen, or if `random.brandNewPaletteChance` is non-zero, a completely random palette could be generated.
+- `palette`: A list of the colors to choose from, as hex strings (e.x. *["#F9A799", "#B7CBBF"]*). If missing, a random palette from [code/color-palettes.json](code/color-palettes.json) will be chosen, or if `random.brandNewPaletteChance` is non-zero, a completely random palette could be generated.
 - `backgroundColor`: The color to be drawn as the background, as a hex string (e.x. *"#F9A799"*). If missing, a random color from the palette will be chosen.
 
 #### `random`
 
 - `random.nudgePropertiesChance`: The chance (0.0 to 1.0) to modify each of the run property values (this will not modify the original file). Useful for generating lookalike permutations. Default value is 0.
 - `random.nudgePropertiesMagnitude`: The amount (0.0 to 1.0) to modify 'nudged' run property values. 1.0 indicates that the property could be anywhere from zero to double its initial value. Default value is 0.2.
-- `random.brandNewPaletteChance`: The chance (0.0 to 1.0) that an undefined palette is made up of completely random colors versus using a palette from the [code/color-palettes.json]() file. Default value is 0.
+- `random.brandNewPaletteChance`: The chance (0.0 to 1.0) that an undefined palette is made up of completely random colors versus using a palette from the [code/color-palettes.json](code/color-palettes.json) file. Default value is 0.
 
 #### `utilityProperties`
 
-- `utilityProperties.noiseType`: The type of noise used in randomization funcations as enumerated in [code/constants.js](). Default value is 0 for simplex noise.
-- `utilityProperties.easingFunction`: The easing functions used when transitioning between control functions over time. See [code/utilities.js]() for enumeration and [easings.net](https://easings.net) for details. Default value is 0 for linear easing.
-- `utilityProperties.xNoiseScale`: How noise output should be scaled along the X axis. A range of roughly `0.0025` to `0.1` works well, depending on preference for smooth or quick transitions int he noise field. This should also be sized in relation to `width`. Default value is 0.015.
+- `utilityProperties.noiseType`: The type of noise used in randomization functions as enumerated in [code/constants.js](code/constants.js). Default value is 0 for simplex noise.
+- `utilityProperties.easingFunction`: The easing functions used when transitioning between control functions over time. See [code/utilities.js](code/utilities.js) for enumeration and [easings.net](https://easings.net) for details. Default value is 0 for linear easing.
+- `utilityProperties.xNoiseScale`: How noise output should be scaled along the X axis. A range of roughly `0.0025` to `0.1` works well, depending on preference for smooth or quick transitions in the noise field. This should also be sized in relation to `width`. Default value is 0.015.
 - `utilityProperties.yNoiseScale`: How noise output should be scaled along the Y axis. A range of roughly `0.0025` to `0.1` works well, depending on preference for smooth or quick transitions in the noise field. This should also be sized in relation to `height`. Default value is 0.015.
 - `utilityProperties.noiseTimeScale`: How noise output should be scaled as the simulation progresses. A low value (e.x. `0.0001` means that the noise field doesn't change much over the course of the iteration. A high value (e.x. `0.1`) means that the noise field changes more quickly.  Default value is 0.001.
-- `utilityProperties.noiseFieldScale`: The factor by which to 'chunk' out noise values, lowering the variance for nearby 'chunks' while increasing it for adjacet 'chunks'. A value of `50` means that the noies field is split into a grid of 50x50 (dimensionless) squares, where the noise value in each square will always be the same value. A value of `1` means that this field has no effect. Default value is 1.
+- `utilityProperties.noiseFieldScale`: The factor by which to 'chunk' out noise values, lowering the variance for nearby 'chunks' while increasing it for adjacent 'chunks'. A value of `50` means that the noise field is split into a grid of 50x50 (dimensionless) squares, where the noise value in each square will always be the same value. A value of `1` means that this field has no effect. Default value is 1.
 - `utilityProperties.seed`: A seed for the Simplex and Brownian noise functions. Note that this does not indicate reproducability, as Javascript's built-in `Math.random()` does not accept a seed input. Default value is `Date.now()`.
 
 #### `particleDefaults`
@@ -109,9 +116,9 @@ The [run-properties.json]() file controls the parameters of the simulation. All 
 - `particleDefaults.minSpeed`: The minimum distance a particle must move in a single iteration. This should be sized in relation to `width` and `height`. Default value is 1.
 - `particleDefaults.maxSpeed`: The maximum distance a particle must move in a single iteration. This should be sized in relation to `width` and `height`. Default value is `Math.sqrt(width * height) / 50`.
 - `particleDefaults.skipPattern`: Either `null` for no skip pattern, or an array of integers indicating a sequence of iterations that the particle should or should not be drawn for. For example `[3,2,5,4]` would indicate that the particle should be drawn the first three iterations, not drawn the next two, drawn the next five, not drawn the next four, then repeat the cycle. Default value is a 50% chance of `null` and a 25% change of a randomly-generated skip pattern.
-- `particleDefaults.lineCapBehavior`: How particle trails are shaped at the ends as enumerated in [code/constants.js](). See [Paper.js documentation](http://paperjs.org/reference/item/#strokecap) for details about the specific behavior of each setting. Default value is a random integer between 0 and 2 (random line cap behavior).
-- `particleDefaults.lineJoinBehavior`: How particle trails are shaped at the intersection between iterations as enumerated in [code/constants.js](). See [Paper.js documentation](http://paperjs.org/reference/item/#strokecap) for details about the specific behavior of each setting. DEault value is a random integer between 0 and 2 (random line join behavior).
-- `particleDefaults.edgeBehavior`: What happens to particles when they reach the edge of the drawing area. See [code/constants.js]() for enumeration and details. Deault value is a random integer between 0 and 4 (random edge behavior).
+- `particleDefaults.lineCapBehavior`: How particle trails are shaped at the ends as enumerated in [code/constants.js](code/constants.js). See [Paper.js documentation](http://paperjs.org/reference/item/#strokecap) for details about the specific behavior of each setting. Default value is a random integer between 0 and 2 (random line cap behavior).
+- `particleDefaults.lineJoinBehavior`: How particle trails are shaped at the intersection between iterations as enumerated in [code/constants.js](code/constants.js). See [Paper.js documentation](http://paperjs.org/reference/item/#strokecap) for details about the specific behavior of each setting. DEault value is a random integer between 0 and 2 (random line join behavior).
+- `particleDefaults.edgeBehavior`: What happens to particles when they reach the edge of the drawing area. See [code/constants.js](code/constants.js) for enumeration and details. Deault value is a random integer between 0 and 4 (random edge behavior).
 - `particleDefaults.overshoot`: How much further to draw a particle's path beyond what it moved in the last iteration (dimensionless). Default value is 0 80% of the time and a random number between 1 and 10 the rest of the time.
 
 #### `positionController`
@@ -134,7 +141,7 @@ The [run-properties.json]() file controls the parameters of the simulation. All 
 #### `angleController`
 
 - `angleController.noiseOffset`: A __non-zero__ multiplicative offset for noise calculations used so that this controller's noise values are different from other controllers. Each controller with the same offset will have the same noise values for a given position and iteration. Default value is 2.
-- `angleController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](). Default value is the RGB channel.
+- `angleController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](code/constants.js). Default value is the RGB channel.
 - `angleController.controlFunction`: The name of the function that will be used to control particle acceleration angles at each iteration. Default value is a random control function. Valid values are:
     - `Noise`: Particle acceleration vectors are based on `utilityProperties.noiseType` noise.
     - `Random`: Particle acceleration vectors are random each iteration.
@@ -160,7 +167,7 @@ The [run-properties.json]() file controls the parameters of the simulation. All 
 #### `colorController`
 
 - `colorController.noiseOffset`: A __non-zero__ multiplicative offset for noise calculations used so that this controller's noise values are different from other controllers. Each controller with the same offset will have the same noise values for a given position and iteration. Default value is 3.
-- `colorController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](). Default value is the RGB channel.
+- `colorController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](code/constants.js). Default value is the RGB channel.
 - `colorController.controlFunction`: The name of the function that will be used to control particle acceleration angles at each iteration. Default value is a random control function. Valid values are:
     - `Noise`: Particles have a color based on `utilityProperties.noiseType` noise.
     - `Random`: Particles have a completely random color every iteration.
@@ -181,14 +188,14 @@ The [run-properties.json]() file controls the parameters of the simulation. All 
 #### `magnitudeController`
 
 - `magnitudeController.noiseOffset`: A __non-zero__ multiplicative offset for noise calculations used so that this controller's noise values are different from other controllers. Each controller with the same offset will have the same noise values for a given position and iteration. Default value is 4.
-- `magnitudeController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](). Default value is the RGB channel.
+- `magnitudeController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](code/constants.js). Default value is the RGB channel.
 - `magnitudeController.controlFunction`: The name of the function that will be used to control the magnitude of each particle's acceleration at each iteration. Default value is a random control function. Valid values are:
     - `Noise`: Particles have an acceleration magnitude based on `utilityProperties.noiseType` noise.
     - `Random`: Particles have a random acceleration magnitude every iteration.
     - `Constant`: Particles have a constant acceleration magnitude.
     - `GlobalConstant`: Particles all have the same constant acceleration magnitude.
-    - `Speedup`: Particles increase their acceleration magnitude from `particleDefaults.minSpeed` to `particleDefaults.maxSpeed` over their lifspan.
-    - `Slowdown`: Particles decrease their acceleration magnitude from `particleDefaults.maxSpeed` to `particleDefaults.minSpeed` over their lifspan.
+    - `Speedup`: Particles increase their acceleration magnitude from `particleDefaults.minSpeed` to `particleDefaults.maxSpeed` over their lifespan.
+    - `Slowdown`: Particles decrease their acceleration magnitude from `particleDefaults.maxSpeed` to `particleDefaults.minSpeed` over their lifespan.
     - `Boosts`: Particle acceleration magnitudes vary from `particleDefaults.minSpeed` to `particleDefaults over `angleController.waveCount` sinusoidal waves.
     - `Heightmap`: Particle acceleration magnitude ranges from `particleDefaults.minSpeed` to `particleDefaults.maxSpeed` depending on the `magnitudeController.heightmapChannel` value at the particle's position.
     - `TimeMux`: Particles start with an acceleration magnitude defined by `magnitudeController.controlMuxA` and over the course of the simulation shift to an acceleration magnitude defined by `magnitudeController.controlMuxA` using `utilityProperties.easingFunction` to ease between values defined by each control function.
@@ -201,7 +208,7 @@ The [run-properties.json]() file controls the parameters of the simulation. All 
 #### `sizeController`
 
 - `sizeController.noiseOffset`: A __non-zero__ multiplicative offset for noise calculations used so that this controller's noise values are different from other controllers. Each controller with the same offset will have the same noise values for a given position and iteration. Default value is 5.
-- `sizeController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](). Default value is the RGB channel.
+- `sizeController.heightmapChannel`: Which color channel of the heightmap to react to, as enumerated in [code/constants.js](code/constants.js). Default value is the RGB channel.
 - `sizeController.controlFunction`: The name of the function that will be used to control the size of each particle at each iteration. Default value is a random control function. Valid values are:
     - `Noise`: Particles are a size based on `utilityProperties.noiseType` noise.
     - `Random`: Particles are a random size every iteration.

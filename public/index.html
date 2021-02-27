@@ -19,14 +19,14 @@
                 height: 800px;
             }
             button {
-                margin: 4px;
-                padding: 4px;
-                font-size: 18px;
-                width: 50%;
+                margin: 1px;
+                padding: 3px;
+                font-size: 14px;
+                width: 100%;
             }
             .flex {
                 display: flex;
-                align-items: start;
+                align-items: center;
             }
             .row {
                 flex-direction: row;
@@ -41,7 +41,7 @@
             let editor;
             let isPaused = false;
             let svgString;
-            let p;
+            let uploadedPropertiesText;
             function SetupEditor() {
                 editor = new JSONEditor(document.getElementById("editor", {}));
             }
@@ -49,7 +49,7 @@
                 editor.set(runProperties);
             }
             function UpdateStepCounter(step, total) {
-                document.getElementById("stepCounter").textContent = step + " / " + total;
+                document.getElementById("stepCounter").textContent = "Iteration " + step + " / " + total;
             }
             function ShowHideHeightmap() {
                 let image = document.getElementById("image");
@@ -59,11 +59,9 @@
                     image.style.display = "none";
                 }
             }
-            function EnableImageDownload(svg, paper) {
+            function EnableImageDownload(svg) {
                 document.getElementById("downloadImageButton").disabled = false;
                 svgString = svg;
-                console.log(svg);
-                p = paper;
             }
             function DisableImageDownload() {
                 document.getElementById("downloadImageButton").disabled = true;
@@ -76,6 +74,28 @@
                 link.href = url;
                 link.click();
             }
+            function SaveProperties() {
+                let data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(editor.get()));
+                let link = document.createElement("a");
+                link.setAttribute("href", data);
+                link.setAttribute("download", "run-properties.json");
+                link.click();
+            }
+            function ImageUploaded(file) {
+                document.getElementById("image").src = window.URL.createObjectURL(file);
+            }
+            function RunPropertiesUploaded(file) {
+                let reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedPropertiesText = event.target.result;
+                    SetRunProperties(JSON.parse(uploadedPropertiesText));
+                }
+                reader.readAsText(file);
+            }
+            function SwapForUploadedRunProperties(baseRunProperties) {
+                if (uploadedPropertiesText) return JSON.parse(uploadedPropertiesText);
+                return baseRunProperties;
+            }
         </script>
         <script src="bundle.js"></script>
     </head>
@@ -86,14 +106,22 @@
                 <img id="image" class="float" style="display: block" src="heightmap.png" crossorigin="anonymous"/>
                 <canvas id="drawingCanvas" width="800px" height="800px"></canvas>
             </div>
-            <div class="flex col" style="flex-grow: 10; position: absolute; left: 820px;">
+            <div class="flex col" style="margin-top: -40px;">
                 <div id="stepCounter"></div>
                 <button onclick="BrowserShowHideBackground()">Show/Hide Heightmap</button>
                 <button onclick="BrowserPauseResume()">Pause/Resume Run</button>
                 <button onclick="RestartRun()">Regenerate Parameters</button>
                 <button onclick="RestartRun(editor.get())">Restart Run</button>
                 <button id="downloadImageButton" onclick="SaveImage()" disabled>Save Image</button>
-                <button onclick="SaveProperties()">Save Properties (TODO)</button>
+                <button id="downloadPropertiesButton" onclick="SaveProperties()">Save Properties</button>
+                <div class="row">
+                    Upload New Heightmap
+                    <input type="file" accept="image/*" onchange="ImageUploaded(this.files[0])">
+                </div>
+                <div class="row">
+                    Upload Run Properties
+                    <input type="file" accept="application/JSON" onchange="RunPropertiesUploaded(this.files[0])">
+                </div>
                 <div id="editor"></div>
             </div>
         </div>
