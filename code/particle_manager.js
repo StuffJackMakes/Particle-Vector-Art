@@ -15,12 +15,11 @@ module.exports = class ParticleManager {
         this.particleProperties.maxLifespan = Math.ceil(runProperties.totalSteps / 2); // Maximum particle lifespan
         this.particleProperties.minSpeed = 1; // Minimum particle speed
         this.particleProperties.maxSpeed = Math.sqrt(runProperties.width * runProperties.height) / 50; // Maximum particle speed
-        this.particleProperties.skipPattern = null; // How many time steps the particle is being drawn, then not, then drawn, etc
-        if (Math.random() > 0.25) this.particleProperties.skipPattern = Util.RandomSkipPattern();
+        this.particleProperties.skipPattern = Math.random() > 0.25 ? null : Util.RandomSkipPattern(); // How many time steps the particle is being drawn, then not, then drawn, etc
         this.particleProperties.lineCapBehavior = Util.RandomRangeInt(0, 3); // How particle line ends are capped
         this.particleProperties.lineJoinBehavior = Util.RandomRangeInt(0, 3); // How particle lines are joined
         this.particleProperties.edgeBehavior = constants.EDGE_BEHAVIOR_KILL; // how particles behave when they hit an edge
-        this.particleProperties.overshoot = 0;
+        this.particleProperties.overshoot = Math.random() > 0.8 ? 0 : Util.RandomRange(1, 10);
 
         this.particles = [];
     }

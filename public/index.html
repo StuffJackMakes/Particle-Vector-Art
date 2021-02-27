@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            * { margin: 0px; padding: 0px; }
+            body { font-size: 18px; }
+            #drawingCanvas {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                z-index: 999;
+            }
+            #image {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 800px;
+                height: 800px;
+            }
+            button {
+                margin: 4px;
+                padding: 4px;
+                font-size: 18px;
+                width: 50%;
+            }
+            .flex {
+                display: flex;
+                align-items: start;
+            }
+            .row {
+                flex-direction: row;
+            }
+            .col {
+                flex-direction: column;
+            }
+        </style>
+        <link rel="stylesheet" href="jsoneditor.min.css">
+        <script src="jsoneditor.min.js"></script>
+        <script>
+            let editor;
+            let isPaused = false;
+            let svgString;
+            let p;
+            function SetupEditor() {
+                editor = new JSONEditor(document.getElementById("editor", {}));
+            }
+            function SetRunProperties(runProperties) {
+                editor.set(runProperties);
+            }
+            function UpdateStepCounter(step, total) {
+                document.getElementById("stepCounter").textContent = step + " / " + total;
+            }
+            function ShowHideHeightmap() {
+                let image = document.getElementById("image");
+                if (image.style.display === "none") {
+                    image.style.display = "block";
+                } else {
+                    image.style.display = "none";
+                }
+            }
+            function EnableImageDownload(svg, paper) {
+                document.getElementById("downloadImageButton").disabled = false;
+                svgString = svg;
+                console.log(svg);
+                p = paper;
+            }
+            function DisableImageDownload() {
+                document.getElementById("downloadImageButton").disabled = true;
+            }
+            function SaveImage() {
+                let fileName = "particle-vector-art.svg"
+                let url = "data:image/svg+xml;utf8," + encodeURIComponent(svgString);
+                let link = document.createElement("a");
+                link.download = fileName;
+                link.href = url;
+                link.click();
+            }
+        </script>
+        <script src="bundle.js"></script>
+    </head>
+    <body>
+        <div class="flex row">
+            <div style="position: relative; padding: 10px;">
+                <canvas id="heightmapCanvas" width="800px" height="800px" style="visiblity:hidden;"></canvas>
+                <img id="image" class="float" style="display: block" src="heightmap.png" crossorigin="anonymous"/>
+                <canvas id="drawingCanvas" width="800px" height="800px"></canvas>
+            </div>
+            <div class="flex col" style="flex-grow: 10; position: absolute; left: 820px;">
+                <div id="stepCounter"></div>
+                <button onclick="BrowserShowHideBackground()">Show/Hide Heightmap</button>
+                <button onclick="BrowserPauseResume()">Pause/Resume Run</button>
+                <button onclick="RestartRun()">Regenerate Parameters</button>
+                <button onclick="RestartRun(editor.get())">Restart Run</button>
+                <button id="downloadImageButton" onclick="SaveImage()" disabled>Save Image</button>
+                <button onclick="SaveProperties()">Save Properties (TODO)</button>
+                <div id="editor"></div>
+            </div>
+        </div>
+    </body>
+</html>
