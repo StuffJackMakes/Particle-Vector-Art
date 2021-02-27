@@ -28,7 +28,7 @@ module.exports = class AngleController extends Controller {
 
         // The control function is the means by which this controller modified a particle
         this.controlFunctions = [this.Noise, this.Constant, this.GlobalConstant, this.Random, this.Curls, this.Waves, this.Loops, this.Heightmap, this.TimeMux, this.HeightmapMux];
-        this.controlFunctionsNoMux = [this.Noise, this.Contant, this.GlobalConstant, this.Random, this.Curls, this.Waves, this.Loops, this.Heightmap];
+        this.controlFunctionsNoMux = [this.Noise, this.Constant, this.GlobalConstant, this.Random, this.Curls, this.Waves, this.Loops, this.Heightmap];
 
         this.RandomizeControl();
         

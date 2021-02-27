@@ -1,8 +1,5 @@
 {
-    "repeatTimes": 0,
-    "width": 800,
-    "height": 800,
-    "numParticles": 1,
+    "repeatTimes": 3,
     "totalSteps": 200,
     "allowBackgroundColor": false,
     "random": {
@@ -15,69 +12,27 @@
         "easingFunction": 0,
         "xNoiseScale": 0.015,
         "yNoiseScale": 0.015,
-        "noiseTimeScale": 0.001,
+        "noiseTimeScale": 0.0101,
         "noiseFieldScale": 1
     },
     "particleDefaults": {
         "minSize": 1,
-        "maxSize": 8,
-        "minLifespan": 50,
-        "maxLifespan": 100,
-        "minSpeed": 0,
-        "maxSpeed": 10,
-        "skipPattern": null,
-        "lineCapBehavior": 1,
-        "lineJoinBehavior": 2,
-        "edgeBehavior": 2,
-        "overshoot": 0
-    },
-    "positionController": {
-        "noiseOffset": 1,
-        "controlFunction": "Center",
-        "controlMuxA": "Center",
-        "controlMuxB": "Spiral",
-        "radiusScale": 15,
-        "spiralAngle": 137.5,
-        "angleStart": 0,
-        "fixedPointX": 1000,
-        "fixedPointY": 0
-    },
-    "angleController": {
-        "noiseOffset": 2,
-        "heightmapChannel": 3,
-        "controlFunction": "Waves",
-        "controlMuxA": null,
-        "controlMuxB": null,
-        "globalConstantAngleX": 1,
-        "globalConstantAngleY": 0,
-        "roundAngleResults": false,
-        "roundToAngle": 0,
-        "waveCount": 4,
-        "loopCount": 4
+        "maxSize": 20,
+        "minLifespan": 75,
+        "maxLifespan": 200,
+        "minSpeed": 2,
+        "maxSpeed": 20
     },
     "colorController": {
         "noiseOffset": 3,
         "heightmapChannel": 3,
-        "controlFunction": "Constant",
+        "controlFunction": "HeightmapMux",
         "controlMuxA": "Constant",
-        "controlMuxB": "GlobalConstant",
-        "globalConstantColor": "#ffffff",
-        "fadeCount": 5
+        "controlMuxB": "Inverse",
     },
     "magnitudeController": {
-        "noiseOffset": 4,
         "heightmapChannel": 3,
-        "controlFunction": "Boosts",
-        "controlMuxA": null,
-        "controlMuxB": null,
-        "globalConstantMagnitude": 1,
-        "boostCount": 4
-    },
-    "sizeController": {
-        "noiseOffset": 5,
-        "heightmapChannel": 3,
-        "controlFunction": "Grow",
-        "controlMuxA": "Medium",
-        "controlMuxB": "Noise"
+        "globalConstantMagnitude": 20,
+        "controlFunction": "GlobalConstant"
     }
 }
