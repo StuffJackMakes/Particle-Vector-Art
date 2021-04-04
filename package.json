@@ -9,7 +9,7 @@
   "author": "https://stuffjackmakes.com",
   "license": "",
   "dependencies": {
-    "canvas": "^2.5.0",
+    "canvas": "^2.7.0",
     "eases": "^1.0.8",
     "lerp": "^1.0.3",
     "open-simplex-noise": "^1.6.0",
